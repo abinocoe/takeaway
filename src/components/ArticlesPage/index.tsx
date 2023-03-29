@@ -1,12 +1,15 @@
 import React from 'react';
 import { useArticleQuery } from '../../hooks/useArticleQuery';
+import ArticleList from '../ArticleList';
+import './index.css';
 
 const ArticlesPage = () => {
   const { data, isError, isLoading } = useArticleQuery();
-  console.log({ data });
+
   return (
-    <div className="article-page">
+    <div className="articles-page">
       <div>Olio Takeaway</div>
+      <ArticleList data={data} isError={isError} isLoading={isLoading} />
     </div>
   );
 };
