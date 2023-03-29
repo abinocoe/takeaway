@@ -1,5 +1,6 @@
 import React from 'react';
 import { Article } from '../../types/article';
+import ArticleListItem from '../ArticleListItem';
 
 interface ArticleListProps {
   data?: Article[];
@@ -23,7 +24,7 @@ const ArticleList = ({ data, isError, isLoading }: ArticleListProps) => {
   return data && data.length > 0 ? (
     <div data-testid="articles-success">
       {data.map((article) => (
-        <p key={article.id}>{article.title}</p>
+        <ArticleListItem article={article} key={article.id} />
       ))}
     </div>
   ) : (
