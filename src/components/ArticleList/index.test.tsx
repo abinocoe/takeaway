@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import ArticleList from '.';
 import { mockArticle } from '../../testData/mockArticle';
 
@@ -24,5 +24,19 @@ describe('ArticleList', () => {
   it('renders a message when in a loading state', () => {
     render(<ArticleList isError={false} isLoading={true} />);
     expect(screen.getByTestId('articles-loading')).toHaveTextContent('Loading');
+  });
+  it('displays modal on item click', () => {
+    render(
+      <ArticleList data={[mockArticle]} isError={false} isLoading={false} />
+    );
+    expect(screen.queryByTestId('modal')).not.toBeInTheDocument();
+    fireEvent(
+      screen.getByText(/Ambipur/),
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+    expect(screen.getByTestId('modal')).toBeInTheDocument();
   });
 });

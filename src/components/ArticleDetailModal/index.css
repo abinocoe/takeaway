@@ -1,0 +1,25 @@
+.modal-contents {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.tile {
+  width: 50%;
+  padding-bottom: 50%;
+}
+
+.tile-contents {
+  position: absolute;
+  padding: 12px;
+  width: 46%;
+}
+
+.article-image {
+  position: absolute;
+  padding: 12px;
+  max-width: 46%;
+  max-height: calc(100vw * 0.4);
+}
+
+

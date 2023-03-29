@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Article } from '../../types/article';
+import ArticleDetailModal from '../ArticleDetailModal';
 import ArticleListItem from '../ArticleListItem';
 
 interface ArticleListProps {
@@ -9,6 +10,12 @@ interface ArticleListProps {
 }
 
 const ArticleList = ({ data, isError, isLoading }: ArticleListProps) => {
+  const [articleViewing, setArticleViewing] = useState<Article>();
+
+  const listItemOnClick = (article: Article) => {
+    setArticleViewing(article);
+  };
+
   if (isLoading) {
     return <p data-testid="articles-loading">Loading...</p>;
   }
@@ -24,8 +31,19 @@ const ArticleList = ({ data, isError, isLoading }: ArticleListProps) => {
   return data && data.length > 0 ? (
     <div data-testid="articles-success">
       {data.map((article) => (
-        <ArticleListItem article={article} key={article.id} />
+        <ArticleListItem
+          article={article}
+          key={article.id}
+          showArticleDetail={listItemOnClick}
+        />
       ))}
+      {articleViewing && (
+        <ArticleDetailModal
+          viewedArticle={articleViewing}
+          isOpen={!!articleViewing}
+          close={() => setArticleViewing(undefined)}
+        />
+      )}
     </div>
   ) : (
     <p data-testid="articles-empty">No articles available :(</p>
