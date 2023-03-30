@@ -1,5 +1,7 @@
 import Modal from 'react-modal';
+import { Wrapper } from '@googlemaps/react-wrapper';
 import { Article } from '../../types/article';
+import Map from '../Map';
 import './index.css';
 
 interface ArticleDetailModalProps {
@@ -13,7 +15,7 @@ const ArticleDetailModal = ({
   isOpen,
   viewedArticle,
 }: ArticleDetailModalProps) => {
-  const { description, images, title } = viewedArticle;
+  const { description, images, location, title } = viewedArticle;
   return (
     <Modal
       isOpen={isOpen}
@@ -27,6 +29,14 @@ const ArticleDetailModal = ({
             </button>
             <p>{title}</p>
             <p>{description}</p>
+            <p>Location: {location.town}</p>
+            <p>{location.distance} units of distance from you :)</p>
+            <Wrapper apiKey={process.env.REACT_APP_GOOGLEMAPS_API_KEY || ''}>
+              <Map
+                latitude={location.latitude}
+                longitude={location.longitude}
+              />
+            </Wrapper>
           </div>
         </div>
         {images.map((image) => (
