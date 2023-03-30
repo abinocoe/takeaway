@@ -5,3 +5,7 @@
   padding: 8px;
   margin: 8px;
 }
+
+.viewed {
+  color: grey;
+}

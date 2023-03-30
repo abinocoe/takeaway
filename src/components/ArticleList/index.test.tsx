@@ -39,4 +39,20 @@ describe('ArticleList', () => {
     );
     expect(screen.getByTestId('modal')).toBeInTheDocument();
   });
+  it('updates styling of list items after they have been clicked', () => {
+    render(
+      <ArticleList data={[mockArticle]} isError={false} isLoading={false} />
+    );
+    const listItem = screen.getByTestId('list-item');
+    expect(listItem).toHaveClass('article-wrapper');
+    expect(listItem).not.toHaveClass('viewed');
+    fireEvent(
+      screen.getByText(/Ambipur/),
+      new MouseEvent('click', {
+        bubbles: true,
+        cancelable: true,
+      })
+    );
+    expect(listItem).toHaveClass('viewed');
+  });
 });

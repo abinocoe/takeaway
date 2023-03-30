@@ -11,9 +11,11 @@ interface ArticleListProps {
 
 const ArticleList = ({ data, isError, isLoading }: ArticleListProps) => {
   const [articleViewing, setArticleViewing] = useState<Article>();
+  const [viewedArticles, setViewedArticles] = useState<Set<number>>(new Set());
 
   const listItemOnClick = (article: Article) => {
     setArticleViewing(article);
+    setViewedArticles(viewedArticles.add(article.id));
   };
 
   if (isLoading) {
@@ -33,6 +35,7 @@ const ArticleList = ({ data, isError, isLoading }: ArticleListProps) => {
       {data.map((article) => (
         <ArticleListItem
           article={article}
+          hasBeenViewed={viewedArticles.has(article.id)}
           key={article.id}
           showArticleDetail={listItemOnClick}
         />
